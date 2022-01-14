@@ -18,23 +18,49 @@ public class Variables
 
 		//integer variables
 		byte byteOne = 127;
-
-
+		short shortOne = 255;
+		int intOne = 111111;
+		long longOne = 999999999;
+		
+		
 		//decimal variables
-
-
+		float floatOne = 31.44242f;
+		double doubleOne = 63.434343;
+		
+		
 		//other integer types
-
-
+		char charOne = 65;
+		
+		
 		//other types
-
-
+		boolean booleanOne = true;
+		String stringOne = "hello world!";
+		
+		
 		//output your information here
 		System.out.println("/////////////////////////////////");
 		System.out.println("*                               *");
 		System.out.println("*        integer types          *");
 		System.out.println("*                               *");
 		System.out.println("*8 bit - byteOne = "+byteOne+"\t\t*");
+		System.out.println("*16 bit - shortOne = "+shortOne+"\t*");
+		System.out.println("32 bit - intOne = "+intOne+"\t*");
+		System.out.println("64 bit - longOne = "+longOne+"\t*");
+		System.out.println("*                               *");
+		System.out.println("*         real types            *");
+		System.out.println("*                               *");
+		System.out.println("*16 bit - floatOne = "+floatOne+"\t*");
+		System.out.println("*32 bit - doubleOne = "+doubleOne+"\t*");
+		System.out.println("*                               *");
+		System.out.println("*      other integer types      *");
+		System.out.println("*                               *");
+		System.out.println("*16 bit - charOne = "+charOne+"\t\t*");
+		System.out.println("*                               *");
+		System.out.println("*         other types           *");
+		System.out.println("*                               *");
+		System.out.println("*booleanOne = "+booleanOne+"\t\t*");
+		System.out.println("*stringOne = "+stringOne+"\t*");
+		System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
 
 
 
