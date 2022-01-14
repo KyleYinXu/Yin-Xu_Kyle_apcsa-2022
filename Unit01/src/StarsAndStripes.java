@@ -27,6 +27,8 @@ public class StarsAndStripes {
 	}
 
 	public void printASmallBox() {
+		//prints out a series with four stripes and three stars
+		
 		for (int i = 0; i < 3; i++) {
 			printTwentyDashes();
 			printTwentyStars();
@@ -35,6 +37,8 @@ public class StarsAndStripes {
 	}
 
 	public void printABigBox() {
+		//prints out two smaller boxes
+		
 		for (int i = 0; i < 2; i++) {
 			printASmallBox();
 		}
