@@ -21,23 +21,32 @@ public class Distance
 
 	public Distance(int x1, int y1, int x2, int y2)
 	{
+		setCoordinates(x1, y1, x2, y2);
 	}
 
 	public void setCoordinates(int x1, int y1, int x2, int y2)
 	{
+		xOne = x1;
+		yOne = y1;
+		xTwo = x2;
+		yTwo = y2;
 	}
 
 	public void calcDistance()
 	{
+		distance = Math.sqrt(Math.pow(xTwo - xOne, 2) + Math.pow(yTwo - yOne, 2));
 	}
 	
 	public double getDistance()
 	{
-		return 0.0;
+		calcDistance();
+		return distance;
 	}
 	
 	public void print()
 	{
+		
+		System.out.printf("%.3f", getDistance());
 	}
 	
 	//complete print or the toString
