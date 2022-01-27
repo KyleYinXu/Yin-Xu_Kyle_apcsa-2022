@@ -8,6 +8,9 @@ public class WordRunner
 {
 	public static void main ( String[] args )
 	{
-		//add test cases		
+		//add test cases
+		System.out.println(new Word("Hello"));
+		System.out.println("World");
+		System.out.println("Jukebox");
 	}
 }
