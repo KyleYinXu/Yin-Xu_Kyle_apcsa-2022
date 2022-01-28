@@ -10,7 +10,9 @@ public class WordRunner
 	{
 		//add test cases
 		System.out.println(new Word("Hello"));
-		System.out.println("World");
-		System.out.println("Jukebox");
+		System.out.println(new Word("World"));
+		System.out.println(new Word("Jukebox"));
+		System.out.println(new Word("TCEA"));
+		System.out.println(new Word("UIL"));
 	}
 }
