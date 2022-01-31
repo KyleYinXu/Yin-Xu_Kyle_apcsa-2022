@@ -27,22 +27,26 @@ public class Triples
 	
 	private int greatestCommonFactor(int a, int b, int c)
 	{
-		int max = 0;
-		for(int i = 0; i < a; i++) {
-			
+		int max = Math.max(a, Math.max(b, c));
+		int gcf = 1;
+		for(int i = 2; i < max; i++) {
+			if(a % i == 0 && b % i == 0 && c % i == 0) {
+				gcf = i;
+			}
 		}
 
-
-		return 1;
+		return gcf;
 	}
 
 	public String toString()
 	{
 		String output="";
-		for(int a = 0; a < number; a++) {
-			for(int b = 0; b < number; b++) {
-				for(int c = 0; c < number; c++) {
-					
+		for(int a = 1; a < number; a++) {
+			for(int b = 1; b < number; b++) {
+				for(int c = 1; c < number; c++) {
+					if(b > a && Math.pow(a, 2) + Math.pow(b, 2) == Math.pow(c, 2) && a % 2 != b % 2 && c % 2 == 1 && greatestCommonFactor(a, b, c) <= 1) {
+						output = output + a + " " + b + " " + c + "\n";
+					}
 				}
 			}
 		}
