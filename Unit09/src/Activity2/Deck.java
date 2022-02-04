@@ -2,6 +2,7 @@ package Activity2;
 import java.util.List;
 
 import Activity1.Card;
+import Activity3.Shuffler;
 
 import java.util.ArrayList;
 
@@ -37,12 +38,12 @@ public class Deck {
 	public Deck(String[] ranks, String[] suits, int[] values) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
 		cards = new Card[ranks.length*suits.length];
-		size = cards.length;
 		for(int i = 0; i < suits.length; i++) {
 			for(int j = 0; j < ranks.length; j++) {
 				cards[i*ranks.length + j] = new Card(ranks[j], suits[i], values[j]);
 			}
 		}
+		shuffle();
 	}
 
 
@@ -70,6 +71,15 @@ public class Deck {
 	 */
 	public void shuffle() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
+		size = cards.length;
+		int r;
+		Card x;
+		for(int i = cards.length - 1; i >= 0; i--) {
+			r = (int) (Math.random()*i);
+			x = cards[i];
+			cards[i] = cards[r];
+			cards[r] = x;
+		}
 	}
 
 	/**

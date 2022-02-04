@@ -13,7 +13,7 @@ public class Shuffler {
 	/**
 	 * The number of values to shuffle.
 	 */
-	private static final int VALUE_COUNT = 4;
+	private static final int VALUE_COUNT = 49;
 
 	/**
 	 * Tests shuffling methods.
@@ -62,6 +62,17 @@ public class Shuffler {
 	 */
 	public static void perfectShuffle(int[] values) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 3 *** */
+		int[] shuffled = new int[values.length];
+		for(int i = 0; i < values.length; i++) {
+			if(i % 2 == 0) {
+				shuffled[i] = values[i/2];
+			} else {
+				shuffled[i] = values[(values.length+1)/2 + i/2];
+			}
+		}
+		for(int i = 0; i < values.length; i++) {
+			values[i] = shuffled[i];
+		}
 	}
 
 	/**
@@ -77,5 +88,13 @@ public class Shuffler {
 	 */
 	public static void selectionShuffle(int[] values) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 3 *** */
+		int r;
+		int x;
+		for(int i = values.length - 1; i >= 0; i--) {
+			r = (int) (Math.random()*i);
+			x = values[i];
+			values[i] = values[r];
+			values[r] = x;
+		}
 	}
 }
