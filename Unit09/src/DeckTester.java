@@ -14,9 +14,12 @@ public class DeckTester {
 		String[] suits = {"green", "blue", "red"};
 		int[] pointValues = {1, 2, 3, 4, 11, 12, 13};
 		Deck d = new Deck(ranks, suits, pointValues);
+		DeckArrayList dArrayList = new DeckArrayList(ranks, suits, pointValues);
 		for(int i = 0; i < 24; i++) {
 			d.deal();
+			dArrayList.deal();
 		}
 		System.out.println(d);
+		System.out.println(dArrayList);
 	}
 }
