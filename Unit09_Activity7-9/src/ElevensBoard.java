@@ -108,7 +108,6 @@ public class ElevensBoard extends Board {
 		boolean queen = false;
 		boolean king = false;
 		for(int i = 0; i < selectedCards.size(); i++) {
-			System.out.println(jack);
 			//Jack Queen King always false \/\/
 			if(cardAt(selectedCards.get(i)).rank().equals("jack")) jack = true;
 			if(cardAt(selectedCards.get(i)).rank().equals("queen")) queen = true;

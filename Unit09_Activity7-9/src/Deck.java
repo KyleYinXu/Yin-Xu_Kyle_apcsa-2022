@@ -37,7 +37,7 @@ public class Deck {
 		cards = new ArrayList<Card>();
 		for(int i = 0; i < suits.length; i++) {
 			for(int j = 0; j < ranks.length; j++) {
-				cards.add(new Card(suits[i], ranks[j], values[j]));
+				cards.add(new Card(ranks[j], suits[i], values[j]));
 			}
 		}
 		shuffle();
