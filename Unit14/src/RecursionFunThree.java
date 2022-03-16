@@ -18,8 +18,22 @@ public class RecursionFunThree
 	 * 777337777  would return 2
 	 * the solution to this problem must use recursion
 	 */
+	public static void main(String[] args) {
+		System.out.println(luckyThrees(3));
+		System.out.println(luckyThrees(31332));
+		System.out.println(luckyThrees(134523));
+		System.out.println(luckyThrees(3113));
+		System.out.println(luckyThrees(13331));
+		System.out.println(luckyThrees(777337777));
+	}
 	public static int luckyThrees( long number )
 	{
-		return 0;
+		int count = 0;
+		if(number < 10) {
+			return 0;
+		} else if(number % 10 == 3){
+			count = 1;
+		}
+		return luckyThrees(number/10) + count;
 	}
 }

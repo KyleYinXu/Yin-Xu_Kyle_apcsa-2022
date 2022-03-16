@@ -11,5 +11,7 @@ public class GridRunner
 {
 	public static void main( String args[] ) throws IOException
 	{
+		Grid grid = new Grid(10, 10, new String[]{"x", "y"});
+		System.out.println(grid);
 	}
 }
