@@ -11,7 +11,9 @@ public class GridRunner
 {
 	public static void main( String args[] ) throws IOException
 	{
-		Grid grid = new Grid(10, 10, new String[]{"x", "y"});
+		String[] values = {"x", "y"};
+		Grid grid = new Grid(10, 10, values);
 		System.out.println(grid);
+		System.out.println(grid.findMax(values));
 	}
 }
