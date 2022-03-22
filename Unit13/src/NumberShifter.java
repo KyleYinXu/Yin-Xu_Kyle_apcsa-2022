@@ -20,15 +20,17 @@ public class NumberShifter
 	}
 	public static void shiftEm(int[] array)
 	{
-		for(int i = 0; i < array.length; i++) {
+		System.out.println(Arrays.toString(array));
+		int index = 0;
+		for(int i = 1; i < array.length; i++) {
 			if(array[i] == 7) {
-				int temp;
-				for(int j = i-1; array[j] != 7; j--) {
-					temp = array[j];
-					array[j] = array[i];
-					array[i] = temp;
-				}
+				int temp = array[index];
+				array[index] = array[i];
+				array[i] = temp;
+				index++;
+				
 			}
 		}
+		System.out.println(Arrays.toString(array));
 	}
 }
