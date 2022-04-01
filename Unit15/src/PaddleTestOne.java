@@ -24,9 +24,8 @@ class PaddleTestOne
 		Paddle five = new Paddle(100,100,30,20, Color.GREEN,6);
 		out.println(five);
 		
+		out.println(five.equals(four));
 		
-		out.println(five.equals(four));		
-		
-		out.println(five.equals(five));										
+		out.println(five.equals(five));
 	}
 }

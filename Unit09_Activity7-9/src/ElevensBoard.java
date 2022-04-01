@@ -32,7 +32,7 @@ public class ElevensBoard extends Board {
 	/**
 	 * Flag used to control debugging print statements.
 	 */
-	private static final boolean I_AM_DEBUGGING = true;
+	private static final boolean I_AM_DEBUGGING = false;
 
 
 	/**
@@ -40,6 +40,7 @@ public class ElevensBoard extends Board {
 	 */
 	 public ElevensBoard() {
 	 	super(BOARD_SIZE, RANKS, SUITS, POINT_VALUES);
+	 	System.out.println("No computer number (even) \nKyle Yin Xu \nPeriod 1 \n3/24/22");
 	 }
 
 	/**
@@ -54,9 +55,9 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean isLegal(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-		if(containsPairSum11(selectedCards) && selectedCards.size() == 2) 
+		if(containsPairSum11(selectedCards) && selectedCards.size() == 3) 
 			return true;
-		if(containsJQK(selectedCards) && selectedCards.size() == 3)
+		if(containsJQK(selectedCards) && selectedCards.size() == 2)
 			return true;
 		return false;
 	}
@@ -86,10 +87,12 @@ public class ElevensBoard extends Board {
 	 */
 	private boolean containsPairSum11(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-		for(int i = 0; i < selectedCards.size()-1; i++) {
-			for(int j = i+1; j < selectedCards.size(); j++) {
-				if(cardAt(selectedCards.get(i)).pointValue() + cardAt(selectedCards.get(j)).pointValue() == 11) return true;
-			}
+		for(int i = 0; i < selectedCards.size()-2; i++) {
+			for(int j = i+1; j < selectedCards.size()-1; j++) {
+				for(int k = j+1; k < selectedCards.size(); k++) {
+				if(cardAt(selectedCards.get(i)).pointValue() + cardAt(selectedCards.get(j)).pointValue() + cardAt(selectedCards.get(k)).pointValue() == 11) return true;
+				}
+			}		
 		}
 		return false;
 	}
@@ -107,12 +110,23 @@ public class ElevensBoard extends Board {
 		boolean jack = false;
 		boolean queen = false;
 		boolean king = false;
+		boolean duplicate = false;
 		for(int i = 0; i < selectedCards.size(); i++) {
 			//Jack Queen King always false \/\/
-			if(cardAt(selectedCards.get(i)).rank().equals("jack")) jack = true;
-			if(cardAt(selectedCards.get(i)).rank().equals("queen")) queen = true;
-			if(cardAt(selectedCards.get(i)).rank().equals("king")) king = true;
+			if(cardAt(selectedCards.get(i)).rank().equals("jack")) {
+				if(jack == true) duplicate = true;
+				jack = true;
+			}
+			if(cardAt(selectedCards.get(i)).rank().equals("queen")) {
+				if(queen == true) duplicate = true;
+				queen = true;
+			}
+			if(cardAt(selectedCards.get(i)).rank().equals("king")) {
+				if(king == true) duplicate = true;
+				king = true;
+			}
 		}
-		return jack && queen && king;
+		return duplicate;
+		
 	}
 }

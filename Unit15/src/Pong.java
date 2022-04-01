@@ -25,7 +25,9 @@ public class Pong extends Canvas implements KeyListener, Runnable
 	public Pong()
 	{
 		//set up all variables related to the game
-
+		ball = new Ball(400, 300, 20, 20, Color.BLUE, 2, 2);
+		leftPaddle = new Paddle(20, 200, 20, 80, Color.ORANGE, 5);
+		rightPaddle = new Paddle(785-20-20, 200, 20, 80, Color.ORANGE, 5);
 
 
 
@@ -62,46 +64,56 @@ public class Pong extends Canvas implements KeyListener, Runnable
 		leftPaddle.draw(graphToBack);
 		rightPaddle.draw(graphToBack);
 
-
+		//785 x 565
+		//40 745
+		
 		//see if ball hits left wall or right wall
-		if(!(ball.getX()>=10 && ball.getX()<=780))
+		if(!(ball.getX()>=10 && ball.getX() + ball.getWidth() <=775))
 		{
-			ball.setXSpeed(0);
-			ball.setYSpeed(0);
+			ball.setXSpeed(-ball.getXSpeed());
 		}
 
 		
 		//see if the ball hits the top or bottom wall 
-
+		if(!(ball.getY()>=10 && ball.getY() + ball.getHeight()<=555))
+		{
+			ball.setYSpeed(-ball.getYSpeed());
+		}
 
 
 
 		//see if the ball hits the left paddle
-		
-		
+		if(ball.didCollideLeft(leftPaddle)) {
+			ball.setXSpeed(Math.abs(ball.getXSpeed()));
+		}
+		if(ball.didCollideTop(leftPaddle) || ball.didCollideTop(rightPaddle)) {
+			ball.setYSpeed(Math.abs(ball.getYSpeed()));
+		}
 		
 		//see if the ball hits the right paddle
+		if(ball.didCollideRight(rightPaddle)) {
+			ball.setXSpeed(-(Math.abs(ball.getXSpeed())));
+		}
 		
 		
-		
-
-
 		//see if the paddles need to be moved
+		if(keys[0] == true && leftPaddle.getY() >= leftPaddle.getSpeed())
+		{
+			leftPaddle.moveUpAndDraw(graphToBack);
+		}
+		if(keys[1] == true && leftPaddle.getY() + leftPaddle.getHeight() <= 565 - leftPaddle.getSpeed())
+		{
+			leftPaddle.moveDownAndDraw(graphToBack);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		}
+		if(keys[2] == true && rightPaddle.getY() >= rightPaddle.getSpeed())
+		{
+			rightPaddle.moveUpAndDraw(graphToBack);
+		}
+		if(keys[3] == true && rightPaddle.getY() + rightPaddle.getHeight() <= 565 - rightPaddle.getSpeed())
+		{
+			rightPaddle.moveDownAndDraw(graphToBack);
+		}
 		
 		twoDGraph.drawImage(back, null, 0, 0);
 	}
