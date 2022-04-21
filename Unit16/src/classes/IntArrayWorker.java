@@ -7,6 +7,38 @@ public class IntArrayWorker
   /** set the matrix to the passed one
     * @param theMatrix the one to use
     */
+  
+  public int getCount(int value) {
+	  int c = 0;
+	  for(int i = 0; i < matrix.length; i++) {
+		  for(int j = 0; j < matrix[i].length; j++) {
+			  if(matrix[i][j] == value) {
+				c++;  
+			  }
+		  }
+	  }
+	  return c;
+  }
+  
+  public int getLargest() {
+	  int max = matrix[0][0];
+	  for(int i = 0; i < matrix.length; i++) {
+		  for(int j = 0; j < matrix[i].length; j++) {
+			  if(matrix[i][j] > max) {
+				  max = matrix[i][j];
+			  }
+		  }
+	  }
+	  return max;
+  }
+  public int getColTotal(int col) {
+	  int sum = 0;
+	  for(int i = 0; i < matrix.length; i++) {
+		  sum+=matrix[i][col];
+	  }
+	return sum;  
+  }
+  
   public void setMatrix(int[][] theMatrix)
   {
     matrix = theMatrix;

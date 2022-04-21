@@ -224,9 +224,9 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("beach.jpg");
+    Picture beach = new Picture("redMotorcycle.jpg");
     beach.explore();
-    beach.keepOnlyRed();
+    beach.mirrorHorizontal();
     beach.explore();
   }
   
@@ -257,6 +257,65 @@ public class Picture extends SimplePicture
 			  cols.setBlue(0);
 			  cols.setRed(0);
 		  }
+	  }
+  }
+  
+  public void negate() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  for(Pixel[] rows : pixels) {
+		  for(Pixel cols : rows) {
+			  cols.setBlue(cols.getBlue()-255);
+			  cols.setRed(cols.getRed()-255);
+			  cols.setGreen(cols.getGreen()-255);
+		  }
+	  }
+  }
+  
+  public void grayScale() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  for(Pixel[] rows : pixels) {
+		  for(Pixel cols : rows) {
+			  int avg = (cols.getBlue() + cols.getRed() + cols.getGreen())/3;
+			  cols.setBlue(avg);
+			  cols.setRed(avg);
+			  cols.setGreen(avg);
+		  }
+	  }
+  }
+  
+  public void fixUnderwater() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  for(Pixel[] rows : pixels) {
+		  for(Pixel cols : rows) {
+			  cols.setRed(cols.getBlue());
+		  }
+	  }
+  }
+  
+  public void mirrorVerticalRightToLeft() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel leftPixel = null;
+	  Pixel rightPixel = null;
+	  int width = pixels[0].length;
+	  for (int row = 0; row < pixels.length; row++) {
+		  for (int col = width/2; col < width; col++) {
+			  rightPixel = pixels[row][col];
+			  leftPixel = pixels[row][width - 1 - col];
+			  leftPixel.setColor(rightPixel.getColor());
+	      }
+	    }
+  }
+  public void mirrorHorizontal() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel topPixel = null;
+	  Pixel bottomPixel = null;
+	  int width = pixels[0].length;
+	  for (int row = 0; row < pixels.length/2; row++) {
+		  for (int col = 0; col < width; col++) {
+			  topPixel = pixels[row][col];
+			  bottomPixel = pixels[pixels.length-1-row][col];
+			  bottomPixel.setColor(topPixel.getColor());
+	      }
 	  }
   }
 } // this } is the end of class Picture, put all new methods before this

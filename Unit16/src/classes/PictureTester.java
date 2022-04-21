@@ -70,6 +70,36 @@ public class PictureTester
 	  pict.keepOnlyGreen();
 	  pict.explore();
   }
+  public static void testNegate() {
+	  Picture pict = new Picture("beach.jpg");
+	  pict.explore();
+	  pict.negate();
+	  pict.explore();
+  }
+  public static void testGrayScale() {
+	  Picture pict = new Picture("beach.jpg");
+	  pict.explore();
+	  pict.grayScale();
+	  pict.explore();
+  }
+  public static void testFixUnderwater() {
+	  Picture pict = new Picture("water.jpg");
+	  pict.explore();
+	  pict.fixUnderwater();
+	  pict.explore();
+  }
+  public static void testMirrorVerticalRightToLeft() {
+	  Picture pict = new Picture("caterpillar.jpg");
+	  pict.explore();
+	  pict.mirrorVerticalRightToLeft();
+	  pict.explore();
+  }
+  public static void testMirrorHorizontal() {
+	  Picture pict = new Picture("redMotorcycle.jpg");
+	  pict.explore();
+	  pict.mirrorHorizontal();
+	  pict.explore();
+  }
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -81,11 +111,12 @@ public class PictureTester
     //testKeepOnlyBlue();
     //testKeepOnlyRed();
     //testKeepOnlyGreen();
-	//  ----
     //testNegate();
     //testGrayscale();
     //testFixUnderwater();
-    testMirrorVertical();
+    //testMirrorVertical();
+	//testMirrorVerticalRightToLeft();
+	//testMirrorHorizontal();
     //testMirrorTemple();
     //testMirrorArms();
     //testMirrorGull();
