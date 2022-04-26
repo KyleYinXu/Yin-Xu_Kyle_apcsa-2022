@@ -100,6 +100,49 @@ public class PictureTester
 	  pict.mirrorHorizontal();
 	  pict.explore();
   }
+  public static void testMirrorHorizontalBottomToTop() {
+	  Picture pict = new Picture("redMotorcycle.jpg");
+	  pict.explore();
+	  pict.mirrorHorizontalBottomToTop();
+	  pict.explore();
+  }
+  public static void testMirrorDiagonal() {
+	  Picture pict = new Picture("beach.jpg");
+	  pict.explore();
+	  pict.mirrorDiagonal();
+	  pict.explore();
+  }
+  public static void testMirrorArms() {
+	  Picture pict = new Picture("snowman.jpg");
+	  pict.explore();
+	  pict.mirrorArms();
+	  pict.explore();
+  }
+  public static void testMirrorGull() {
+	  Picture pict = new Picture("seagull.jpg");
+	  pict.explore();
+	  pict.mirrorGull();
+	  pict.explore();
+  }
+  public static void testCopy() {
+	  Picture beach = new Picture("beach.jpg");
+	    Picture after = new Picture("seagull.jpg");
+	    beach.explore();
+	    beach.copy2(after, 230, 330, 230, 350, 250, 300);
+	    beach.explore();
+  }
+  public static void testMyCollage() {
+	  Picture pict = new Picture("moon-surface.jpg");
+	  pict.explore();
+	  pict.myCollage();
+	  pict.explore();
+  }
+  public static void testEdgeDetection2() {
+	  Picture pict = new Picture("swan.jpg");
+	  pict.explore();
+	  pict.edgeDetection2();
+	  pict.explore();
+  }
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
