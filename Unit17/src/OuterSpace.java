@@ -3,6 +3,7 @@
 //Name -
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Canvas;
@@ -17,15 +18,13 @@ import java.util.ArrayList;
 public class OuterSpace extends Canvas implements KeyListener, Runnable
 {
 	private Ship ship;
-	private Alien alienOne;
-	private Alien alienTwo;
-
-	/* uncomment once you are ready for this part
-	 *
-   private AlienHorde horde;
+	
+	 //uncomment once you are ready for this part
+	 
+    private AlienHorde horde;
 	private Bullets shots;
-	*/
-
+	
+	private Font font;
 	private boolean[] keys;
 	private BufferedImage back;
 
@@ -37,10 +36,11 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
 		//instantiate other instance variables
 		//Ship, Alien
-		ship = new Ship(400, 400);
-		alienOne = new Alien(100, 100);
-		alienTwo = new Alien(300, 100);
+		horde = new AlienHorde(28);
+		shots = new Bullets();
+		ship = new Ship(400, 400, 50, 50, 3);
 		this.addKeyListener(this);
+		font = new Font("Arial", 40, 40);
 		new Thread(this).start();
 
 		setVisible(true);
@@ -85,13 +85,33 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		{
 			ship.move("DOWN");
 		}
+		if(keys[4] == true)
+		{
+			if(!shots.getList().isEmpty()) {
+				Ammo temp = shots.getList().get(shots.getList().size()-1);
+				if(temp.getY() + temp.getHeight() + temp.getSpeed()*40 < ship.getY()) { 
+					shots.add(new Ammo(ship.getX()+ship.getWidth()/2 - 5, ship.getY(), 3));
+				}
+			}
+			else shots.add(new Ammo(ship.getX()+ship.getWidth()/2 - 5, ship.getY(), 3));
+		}
 		//add code to move Ship, Alien, etc.
 		ship.draw(graphToBack);
-		alienOne.draw(graphToBack);
-		alienTwo.draw(graphToBack);
+		horde.drawEmAll(graphToBack);
+		horde.moveEmAll();
+		shots.drawEmAll(graphToBack);
+		shots.moveEmAll();
+		ship.testCollision(horde.getList());
+		horde.removeDeadOnes(shots.getList(), ship);
+		shots.cleanEmUp();
+		
+		if(!ship.isAlive()) {
+			graphToBack.setFont(font);
+			graphToBack.setColor(Color.WHITE);
+			graphToBack.drawString("GAME OVER", 270, 200);
+		}
 		//add in collision detection to see if Bullets hit the Aliens and if Bullets hit the Ship
-
-
+		
 		twoDGraph.drawImage(back, null, 0, 0);
 	}
 

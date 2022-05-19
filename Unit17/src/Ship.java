@@ -4,6 +4,7 @@
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -13,6 +14,8 @@ public class Ship extends MovingThing
 {
 	private int speed;
 	private Image image;
+	private boolean shield;
+	private boolean alive;
 
 	public Ship()
 	{
@@ -33,9 +36,11 @@ public class Ship extends MovingThing
 	{
 		super(x, y, w, h);
 		speed=s;
+		shield = true;
+		alive = true;
 		try
 		{
-			URL url = getClass().getResource("/images/ship.jpg");
+			URL url = getClass().getResource("/images/ship.jpgWithShield.jpg");
 			image = ImageIO.read(url);
 		}
 		catch(Exception e)
@@ -55,7 +60,11 @@ public class Ship extends MovingThing
 	{
 	   return speed;
 	}
-
+	
+	public boolean isAlive() {
+		return alive;
+	}
+	
 	public void move(String direction)
 	{
 		if(direction.equalsIgnoreCase("LEFT")) setX(getX()-speed);
@@ -64,9 +73,40 @@ public class Ship extends MovingThing
 		if(direction.equalsIgnoreCase("DOWN")) setY(getY()+speed);
 	}
 
+	public void testCollision(List<Alien> aliens) {
+		for(int i = 0; i < aliens.size(); i++) {
+			Alien temp = aliens.get(i);
+			if(temp.getX() < getX() + getWidth() && temp.getX() + temp.getWidth() > getX() && temp.getY() + temp.getHeight() > getY() && temp.getY() < getY() + getHeight()) {
+				if(shield == true) shield = false;
+				else alive = false;
+				aliens.remove(i);
+				break;
+			}
+		}
+	}
+	
 	public void draw( Graphics window )
 	{
-   	window.drawImage(image,getX(),getY(),getWidth(),getHeight(),null);
+		if(alive == false) {
+			
+		} else {
+			try
+			{
+				URL url;
+				if(shield == true) {
+					url = getClass().getResource("/images/ship.jpgWithShield.jpg");
+				}
+				else {
+					url = getClass().getResource("/images/ship.jpg");
+				}
+				image = ImageIO.read(url);
+			}
+			catch(Exception e)
+			{
+				System.out.println("test");
+			}
+				window.drawImage(image,getX(),getY(),getWidth(),getHeight(),null);
+		}
 	}
 
 	public String toString()

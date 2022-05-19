@@ -51,12 +51,15 @@ public class Alien extends MovingThing
 
 	public int getSpeed()
 	{
-	   return 0;
+	   return speed;
 	}
 
    public void move(String direction)
 	{
-	   setX(getX()+25);
+	   if(direction == "RIGHT") setX(getX()+speed);
+	   else if(direction == "LEFT") setX(getX()-speed);
+	   else if(direction == "DOWN") setY(getY()+speed);
+	   else if(direction == "UP") setY(getY()-speed);
 	}
 
 	public void draw( Graphics window )
