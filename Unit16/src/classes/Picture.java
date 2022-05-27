@@ -236,10 +236,13 @@ public class Picture extends SimplePicture
   //--------------------------------------------------------------------------
   public static void main(String[] args) 
   {
-    Picture pict = new Picture("swan.jpg");
-    pict.explore();
-    pict.edgeDetection2();
-    pict.explore();
+    Picture message = new Picture("apple_icon.jpg");
+    Picture image = new Picture("beach.jpg");
+    image.explore();
+    image.encode(message);
+    image.explore();
+    Picture decrypted = image.decode();
+    decrypted.explore();
   }
   
   public void keepOnlyBlue() {
@@ -430,5 +433,116 @@ public class Picture extends SimplePicture
 		  }
 	  }
 	 
+  }
+  
+  public void encode(Picture messagePict)
+  {
+	  
+	  
+	  //0 0 north
+	  //0 1 east
+	  //1 0 west
+	  //1 1 south
+	  //0 - block north/west
+	  //1 - block south/east
+	  //16 blocks random
+	  Pixel[][] image = this.getPixels2D();
+	  Pixel[][] message = messagePict.getPixels2D();
+	  int[][] randArray = new int[4][4];
+	  int[][] dirArray = new int[4][4];
+	  int random = 0; //r value 0 or 1
+	  int direction = 0; //random=0 --> north/south or random=1 --> west/east
+	  //480x640
+	  //120x160
+	  
+	  //ITERATION CANCELS OUT FOR i -> 4, FOR J -> 4 AND I J EACH CHUNK
+	  
+	  for(int i = 0; i < this.getHeight(); i++) {
+		  for(int j = 0; j < this.getWidth(); j++) {
+			  Pixel pixel = image[i][j];
+			  int r = (i*4)/(this.getHeight());
+			  int c = (j*4)/(this.getWidth());
+			  if(i % (this.getHeight()/4) == 0 && j % (this.getWidth()/4) == 0) {
+				  randArray[r][c] = (int)Math.round(Math.random());
+				  dirArray[r][c] = (int)Math.round(Math.random());
+				  
+			  }
+			  random = randArray[r][c];
+			  direction = dirArray[r][c];
+			  if(random == 0) {
+				  if(pixel.getRed() % 2 == 1) pixel.setRed(pixel.getRed()-1);
+			  } else {
+				  if(pixel.getRed() % 2 == 0) pixel.setRed(pixel.getRed()+1);
+			  }
+			  if(pixel.getRed() % 2 == 0) {
+				  if(direction == 0) {
+					  if(pixel.getGreen() % 2 == 1) pixel.setGreen(pixel.getGreen()-1);
+					  if(pixel.getBlue() % 2 == 1) pixel.setBlue(pixel.getBlue()-1);
+				  } else {
+					  if(pixel.getGreen() % 2 == 0) pixel.setGreen(pixel.getGreen()+1);
+					  if(pixel.getBlue() % 2 == 0) pixel.setBlue(pixel.getBlue()+1);
+				  }
+			  } else {
+				  if(direction == 0) {
+					  if(pixel.getGreen() % 2 == 1) pixel.setGreen(pixel.getGreen()-1);
+					  if(pixel.getBlue() % 2 == 0) pixel.setBlue(pixel.getBlue()+1);
+				  } else {
+					  if(pixel.getGreen() % 2 == 0) pixel.setGreen(pixel.getGreen()+1);
+					  if(pixel.getBlue() % 2 == 1) pixel.setBlue(pixel.getBlue()-1);
+				  }
+			  }
+			  
+			  if(message[i][j].colorDistance(Color.BLACK) < 50) {
+				  //00 01 11 10
+				  boolean green = pixel.getGreen() % 2 == 1;
+				  boolean blue = pixel.getBlue() % 2 == 1;
+				  if(!green && !blue) pixel.setBlue(pixel.getBlue()+1);
+				  if(!green && blue) pixel.setGreen(pixel.getGreen()+1);
+				  if(green && blue) pixel.setBlue(pixel.getBlue()-1);
+				  if(green && !blue) pixel.setGreen(pixel.getGreen()-1);
+				  
+			  }
+		  }
+	  }
+	  
+//VISUALIZATION--
+	  //00 01 11 10
+	  for(int i = 0; i < this.getHeight(); i++) {
+		  for(int j = 0; j < this.getWidth(); j++) {
+			  Pixel pixel = image[i][j];
+			  boolean red = pixel.getRed() % 2 == 1;
+			  boolean green = pixel.getGreen() % 2 == 1;
+			  boolean blue = pixel.getBlue() % 2 == 1;
+			  //if(!green && !blue) pixel.setColor(Color.RED);
+			  //if(!green && blue) pixel.setColor(Color.YELLOW);
+			  //if(green && !blue) pixel.setColor(Color.GREEN);
+			  //if(green && blue) pixel.setColor(Color.CYAN);
+			  //if(red) pixel.setColor(Color.RED);
+		  }
+	  }
+	  
+	  //--
+  }
+  public Picture decode()
+  {
+	  Pixel[][] image = this.getPixels2D();
+	  Picture decrypted = new Picture(this.getHeight(), this.getWidth());
+	  Pixel[][] pixels = decrypted.getPixels2D();
+	  for(int i = 0; i < this.getHeight(); i++) {
+		  for(int j = 0; j < this.getWidth(); j++) {
+			  //decrypt ////change directions
+			  Pixel pixel = image[i][j];
+			  int red = pixel.getRed() % 2;
+			  int green = pixel.getGreen() % 2;
+			  int blue = pixel.getBlue() % 2;
+			  if(red == 0 && green != blue) 
+				  pixels[i][j].setColor(Color.BLACK);
+			  else if(red == 1 && green == blue)
+				  pixels[i][j].setColor(Color.BLACK);
+			  else 
+				  pixels[i][j].setColor(Color.WHITE);
+		  }
+	  }
+	  return decrypted;
   }
 } // this } is the end of class Picture, put all new methods before this
