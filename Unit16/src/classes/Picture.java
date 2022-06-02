@@ -236,8 +236,8 @@ public class Picture extends SimplePicture
   //--------------------------------------------------------------------------
   public static void main(String[] args) 
   {
-    Picture message = new Picture("apple_icon.jpg");
-    Picture image = new Picture("beach.jpg");
+    Picture message = new Picture("msg.jpg");
+    Picture image = new Picture("apple_icon.jpg");
     image.explore();
     image.encode(message);
     image.explore();
